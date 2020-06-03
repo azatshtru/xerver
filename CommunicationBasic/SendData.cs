@@ -7,18 +7,29 @@ namespace CommunicationBasic
 {
     class SendData
     {
-        void SendString(string msg, TcpClient client)
+        void SendString(byte[] msg, TcpClient client)
         {
             NetworkStream stream;
 
-            byte[] msgInBytes = Encoding.ASCII.GetBytes(msg);
-
             stream = client.GetStream();
 
-            stream.Write(msgInBytes, 0, msgInBytes.Length);
+            stream.Write(msg, 0, msg.Length);
         }
 
         public void KeepSend (TcpClient client, string msg)
+        {
+            try
+            {
+                byte[] msgInBytes = Encoding.ASCII.GetBytes(msg);
+                SendString(msgInBytes, client);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e}");
+            }
+        }
+
+        public void KeepSend(TcpClient client, byte[] msg)
         {
             try
             {

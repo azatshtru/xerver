@@ -9,7 +9,7 @@ namespace CommunicationBasic
     class Program
     {
         static int port = 26950;
-        static int numPlayers = 3;
+        static int numPlayers = 2;
 
         static SendData dataSender = new SendData();
 
@@ -46,7 +46,7 @@ namespace CommunicationBasic
             }
         }
 
-        public static void Send(TcpClient sender, string msg)
+        public static void Send(TcpClient sender, byte[] msg)
         {
             for (int i = 0; i < tcpClients.Count; i++)
             {

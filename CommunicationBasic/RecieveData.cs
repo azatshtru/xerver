@@ -7,20 +7,22 @@ namespace CommunicationBasic
 {
     class RecieveData
     {
-        string RecieveString(TcpClient client)
+        byte[] RecieveString(TcpClient client)
         {
 
             NetworkStream stream;
 
             stream = client.GetStream();
 
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[2048];
             int bytesRead = stream.Read(bytes, 0, bytes.Length);
+            byte[] bytesToSend = new byte[bytesRead];
+            Array.Copy(bytes, bytesToSend, bytesRead);
 
-            string recievedMsg = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-            Console.WriteLine($"Message from Client: " + recievedMsg);
+            //string recievedMsg = Encoding.ASCII.GetString(bytes, 0, bytesRead);
+            //Console.WriteLine($"Message from Client: " + recievedMsg);
 
-            return recievedMsg;
+            return bytesToSend;
         }
 
         public void KeepRecieve(TcpClient client)
@@ -29,7 +31,7 @@ namespace CommunicationBasic
             {
                 try
                 {
-                    string s = RecieveString(client);
+                    byte[] s = RecieveString(client);
 
                     Console.WriteLine(s);
 
