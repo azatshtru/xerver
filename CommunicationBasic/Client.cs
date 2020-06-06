@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
+using System.Net;
 using System.Text;
 using System.Threading;
 
@@ -11,6 +11,7 @@ namespace CommunicationBasic
     {
         int id;
         public TcpClient client;
+        public IPEndPoint clientEndPoint;
 
         public Client(int _id, TcpClient _client)
         {
@@ -25,7 +26,14 @@ namespace CommunicationBasic
         void ThreadSend()
         {
             RecieveData dataReciever = new RecieveData();
+            //FastRecieve fastReciever = new FastRecieve();
+
+            IPAddress clientIPAddress = IPAddress.Parse(((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString());
+            IPEndPoint listenEndPoint = new IPEndPoint(clientIPAddress, Program.port);
+            clientEndPoint = listenEndPoint;
+
             dataReciever.KeepRecieve(client);
+            //fastReciever.KeepRecieve(listenEndPoint);
         }
     }
 }

@@ -8,12 +8,13 @@ namespace CommunicationBasic
 {
     class Program
     {
-        static int port = 26950;
+        public static int port = 26950;
         static int numPlayers = 2;
 
         static SendData dataSender = new SendData();
 
         static TcpListener tcpListener;
+
         static Dictionary<int, Client> tcpClients = new Dictionary<int, Client>();
 
         static void Main(string[] args)
@@ -51,6 +52,18 @@ namespace CommunicationBasic
             for (int i = 0; i < tcpClients.Count; i++)
             {
                 if(tcpClients[i].client == sender)
+                {
+                    continue;
+                }
+                dataSender.KeepSend(tcpClients[i].client, msg);
+            }
+        }
+
+        public static void Send(IPEndPoint sender, byte[] msg)
+        {
+            for (int i = 0; i < tcpClients.Count; i++)
+            {
+                if (tcpClients[i].clientEndPoint == sender)
                 {
                     continue;
                 }
