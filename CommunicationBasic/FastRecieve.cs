@@ -26,7 +26,7 @@ namespace CommunicationBasic
 
             while (true)
             {
-                Thread.Sleep(10);
+                Thread.Sleep(25);
                 try
                 {
                     byte[] s = RecieveString(iPEndPoint);

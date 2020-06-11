@@ -43,7 +43,7 @@ namespace CommunicationBasic
             }
             for(int x = 0; x < tcpClients.Count; x++)
             {
-                dataSender.KeepSend(tcpClients[x].client, "serverstart");
+                dataSender.KeepSend(tcpClients[x].client, "serverstart" + x.ToString());
             }
         }
 

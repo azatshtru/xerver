@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace CommunicationBasic
 {
@@ -29,6 +30,9 @@ namespace CommunicationBasic
         {
             while (true)
             {
+
+                Thread.Sleep(15);
+
                 try
                 {
                     byte[] s = RecieveString(client);
